@@ -1,0 +1,11 @@
+/back/.idea/*
+/back/Include/*
+/back/Lib/*
+/back/Scripts/*
+/back/tcl/*
+
+/back/app/api/__pycache__/*
+/back/app/api/migrations/__pycache__/*
+/back/app/app/__pycache__/*
+
+/front/*
