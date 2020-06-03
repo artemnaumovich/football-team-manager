@@ -14,7 +14,20 @@ from .views import (
     PlayerView,
     SinglePlayerView,
     CoachView,
-    SingleCoachView
+    SingleCoachView,
+    MatchView,
+    SingleMatchView,
+)
+
+from .sql_views import (
+    Q_1_1View,
+    Q_1_2View,
+    Q_1_3View,
+    Q_1_4View,
+    Q_1_5View,
+    Q_2_1View,
+    Q_2_2View,
+    Q_2_3View
 )
 
 
@@ -34,5 +47,17 @@ urlpatterns = [
     path('player/', PlayerView.as_view()),
     path('player/<int:pk>/', SinglePlayerView.as_view()),
     path('coach/', CoachView.as_view()),
-    path('coach/<int:pk>/', SingleCoachView.as_view())
+    path('coach/<int:pk>/', SingleCoachView.as_view()),
+    path('match/', MatchView.as_view()),
+    path('match/<int:pk>/', SingleMatchView.as_view()),
+
+    path('q_1_1/', Q_1_1View.as_view()),
+    path('q_1_2/', Q_1_2View.as_view()),
+    path('q_1_3/', Q_1_3View.as_view()),
+    path('q_1_4/', Q_1_4View.as_view()),
+    path('q_1_5/', Q_1_5View.as_view()),
+
+    path('q_2_1/', Q_2_1View.as_view()),
+    path('q_2_2/', Q_2_2View.as_view()),
+    path('q_2_3/', Q_2_3View.as_view())
 ]

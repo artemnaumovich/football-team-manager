@@ -54,7 +54,9 @@ class Person(models.Model):
 class Player(models.Model):
     person = models.OneToOneField(Person, on_delete=models.CASCADE, related_name='player')
     team = models.ForeignKey(Team, on_delete=models.SET_NULL, related_name='players', blank=True, default=None, null=True)
-    
+    height = models.PositiveIntegerField()
+    weight = models.PositiveIntegerField()
+
     def __str__(self):
         return '{}({})'.format(self.person, self.team)
 
@@ -65,3 +67,14 @@ class Coach(models.Model):
 
     def __str__(self):
         return '{}({})'.format(self.person, self.team)
+
+
+class Match(models.Model):
+    stadium = models.ForeignKey(Stadium, on_delete=models.CASCADE, related_name='matches')
+    home_team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='home_matches')
+    guest_team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='guest_matches')
+    date_time = models.DateTimeField()
+    home_goals = models.PositiveIntegerField()
+    guest_goals = models.PositiveIntegerField()
+    home_total_attempts = models.PositiveIntegerField()
+    guest_total_attempts = models.PositiveIntegerField()

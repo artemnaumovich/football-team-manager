@@ -9,7 +9,8 @@ from .models import (
     Team,
     Person,
     Player,
-    Coach
+    Coach,
+    Match
 )
 
 
@@ -20,3 +21,4 @@ admin.site.register(Team)
 admin.site.register(Person)
 admin.site.register(Player)
 admin.site.register(Coach)
+admin.site.register(Match)

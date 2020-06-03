@@ -3,6 +3,7 @@ from rest_framework.generics import (
     RetrieveUpdateDestroyAPIView,
     get_object_or_404
 )
+
 from .models import (
     Country,
     City,
@@ -10,8 +11,10 @@ from .models import (
     Team,
     Person,
     Player,
-    Coach
+    Coach,
+    Match
 )
+
 from .serializers import (
     CountrySerializer,
     CitySerializer,
@@ -19,8 +22,10 @@ from .serializers import (
     TeamSerializer,
     PersonSerializer,
     PlayerSerializer,
-    CoachSerializer
+    CoachSerializer,
+    MatchSerializer
 )
+
 from django.db import IntegrityError
 from rest_framework import serializers
 
@@ -183,3 +188,27 @@ class SingleCoachView(RetrieveUpdateDestroyAPIView):
                 raise serializers.ValidationError({"person": ["coach with this person already exists."]})
             elif error.endswith('team_id'):
                 raise serializers.ValidationError({"team": ["coach with this team already exists."]})
+
+
+class MatchView(ListCreateAPIView):
+    queryset = Match.objects.all()
+    serializer_class = MatchSerializer
+
+    def perform_create(self, serializer):
+        stadium = get_object_or_404(Stadium, id=self.request.data.get('stadium_id'))
+        home_team = get_object_or_404(Team, id=self.request.data.get('home_team_id'))
+        guest_team = get_object_or_404(Team, id=self.request.data.get('guest_team_id'))
+        return serializer.save(stadium=stadium, home_team=home_team, guest_team=guest_team)
+
+
+class SingleMatchView(RetrieveUpdateDestroyAPIView):
+    queryset = Match.objects.all()
+    serializer_class = MatchSerializer
+
+    def perform_update(self, serializer):
+        stadium = get_object_or_404(Stadium, id=self.request.data.get('stadium_id'))
+        home_team = get_object_or_404(Team, id=self.request.data.get('home_team_id'))
+        guest_team = get_object_or_404(Team, id=self.request.data.get('guest_team_id'))
+        return serializer.save(stadium=stadium, home_team=home_team, guest_team=guest_team)
+
+
